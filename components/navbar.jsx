@@ -21,7 +21,7 @@ const Navbar = () => {
             <Skeleton height={50} width={50} circle />
           </div>
         ) : (
-          <Link href="/" className="font-bold text-xl flex items-center gap-3">
+          <Link href="/" className="font-semibold text-xl flex items-center gap-3">
             {data.logoImage && (
               <Image
                 src={urlFor(data.logoImage).url()}
