@@ -5,17 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const BlogHero = () => {
+const DataNewsHero = () => {
   const data = useLayout();
   console.log("data", data?.blogPageBanner);
   return (
     <div className="mt-5 rounded-md max-w-4xl w-full mx-auto">
-      {/* <Link href="/blog"> */}
-      {data?.blogPageBanner && (
+      {/* <Link href="/data-news"> */}
+      {data?.dataPageBanner && (
         <div className="grid grid-cols-1 items-center">
           <div className="aspect-[5/3]">
             <Image
-              src={urlFor(data?.blogPageBanner)?.url()}
+              src={urlFor(data?.dataPageBanner)?.url()}
               width={800}
               height={400} // Reduced height
               alt="blog"
@@ -29,4 +29,4 @@ const BlogHero = () => {
   );
 };
 
-export default BlogHero;
+export default DataNewsHero;

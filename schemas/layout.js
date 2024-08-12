@@ -24,6 +24,11 @@ export default {
       type: "image",
     },
     {
+      name: "dataPageBanner",
+      title: "Data News Page Banner",
+      type: "image",
+    },
+    {
       name: "name",
       title: "Name",
       type: "string",

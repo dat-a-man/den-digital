@@ -9,21 +9,21 @@ const Hero = () => {
   const data = useLayout();
   return (
     <div className="mt-5 rounded-md max-w-4xl w-full mx-auto">
-      <Link href="/">
+      {/* <Link href="/"> */}
+      {data?.homePageBanner && (
         <div className="grid grid-cols-1 items-center">
           <div className="aspect-auto">
-            {data?.homePageBanner && (
-              <Image
-                src={urlFor(data.homePageBanner).url()}
-                width={800}
-                height={700}
-                alt="blog"
-                className="rounded-md"
-              />
-            )}
+            <Image
+              src={urlFor(data.homePageBanner).url()}
+              width={800}
+              height={700}
+              alt="blog"
+              className="rounded-md"
+            />
           </div>
         </div>
-      </Link>
+      )}
+      {/* </Link> */}
     </div>
   );
 };
