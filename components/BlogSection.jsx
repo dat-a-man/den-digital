@@ -7,6 +7,7 @@ import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
 import dayjs from "dayjs";
 import { MessageCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const getBlogPosts = (posts, tab) => {
   let topPosts = [];
@@ -235,7 +236,12 @@ const CommentCard = ({ post }) => {
     <div className="">
       <Link href={`/post/${post.currentSlug}/comment`}>
         <div className="flex items-center space-x-4 ">
-          <div className="w-[70%] space-y-2">
+          <div
+            className={cn("space-y-2")}
+            style={{
+              width: post?.mainImage ? "70%" : "100%",
+            }}
+          >
             <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
               <span> Commented on: </span> {post.title}
             </h3>
@@ -248,18 +254,17 @@ const CommentCard = ({ post }) => {
                 {post.latestComment.name}
               </span>
             </p>
-            <div>{/* <Heart size={14} /> */}</div>
           </div>
-          <div className="w-[30%] h-28 relative rounded-md overflow-hidden">
-            {post?.mainImage && (
+          {post?.mainImage && (
+            <div className="w-[30%] h-28 relative rounded-md overflow-hidden">
               <Image
                 src={urlFor(post?.mainImage)?.url()}
                 layout="fill"
                 objectFit="cover"
                 alt={post.title}
               />
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </Link>
     </div>

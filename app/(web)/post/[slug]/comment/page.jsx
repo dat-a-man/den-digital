@@ -44,6 +44,8 @@ const Comments = () => {
     getPostData();
   }, []);
 
+  console.log("post", post);
+
   useEffect(() => {
     if (post) getComments();
   }, [post]);
@@ -88,7 +90,7 @@ const Comments = () => {
             </h3>
             <div className="flex items-center gap-5 mt-2">
               <p className="text-xs text-gray-600 dark:text-gray-400">
-                {post?.authorName} •{" "}
+                {post?.author?.name} •{" "}
                 {dayjs(post?.publishedAt).format("MMMM DD, YYYY")}
               </p>
             </div>
