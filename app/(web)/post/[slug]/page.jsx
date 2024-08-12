@@ -88,6 +88,18 @@ const BlogPost = () => {
       .finally(() => setCommentPostLoader(false));
   };
 
+  const components = {
+    types: {
+      image: ({ value }) => (
+        <img
+          src={urlFor(value).width(800).url()} // Adjust size as needed
+          alt={value.alt || "Image"}
+          style={{ maxWidth: "100%", height: "auto" }} // Responsive styling
+        />
+      ),
+    },
+  };
+
   if (loading) {
     return (
       <div className="min-h-[70vh] md:min-h-[60vh] h-full">
@@ -150,7 +162,7 @@ const BlogPost = () => {
         )}
         <div className="mt-5 w-full">
           <div className="prose w-full max-w-none">
-            <PortableText value={post.body} />
+            <PortableText value={post.body} components={components} />
           </div>
         </div>
       </div>
