@@ -92,7 +92,7 @@ const BlogPost = () => {
     types: {
       image: ({ value }) => (
         <img
-          src={urlFor(value).width(800).url()} // Adjust size as needed
+          src={urlFor(value)?.width(800)?.url()} // Adjust size as needed
           alt={value.alt || "Image"}
           style={{ maxWidth: "100%", height: "auto" }} // Responsive styling
         />
