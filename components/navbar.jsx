@@ -22,15 +22,15 @@ const Navbar = () => {
           </div>
         ) : (
           <Link href="/" className="font-semibold text-xl flex items-center gap-3">
-            {data.logoImage && (
+            {data?.logoImage && (
               <Image
-                src={urlFor(data.logoImage).url()}
+                src={urlFor(data?.logoImage)?.url()}
                 width={40}
                 height={40}
                 alt="logo"
               />
             )}
-            <span className="flex">{data.logoText}</span>
+            <span className="flex">{data?.logoText}</span>
           </Link>
         )}
 

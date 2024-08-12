@@ -46,7 +46,7 @@ const NewsLetter = () => {
   return (
     <div className="flex flex-col items-center justify-center text-center my-5">
       <Avatar>
-        {data?.logoImage && <AvatarImage src={urlFor(data.logoImage).url()} />}
+        {data?.logoImage && <AvatarImage src={urlFor(data?.logoImage)?.url()} />}
       </Avatar>
       <div className="mt-7">
         <h3 className="font-semibold text-gray-800 dark:text-gray-100">
