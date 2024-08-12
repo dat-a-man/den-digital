@@ -201,12 +201,14 @@ const BlogCard = ({ post }) => {
             <div>{/* <Heart size={14} /> */}</div>
           </div>
           <div className="w-[30%] h-28 relative rounded-md overflow-hidden">
-            <Image
-              src={urlFor(post.mainImage).url()}
-              layout="fill"
-              objectFit="cover"
-              alt={post.title}
-            />
+            {post?.mainImage && (
+              <Image
+                src={urlFor(post.mainImage).url()}
+                layout="fill"
+                objectFit="cover"
+                alt={post.title}
+              />
+            )}
           </div>
         </div>
       </Link>
