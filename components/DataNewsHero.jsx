@@ -7,7 +7,6 @@ import React from "react";
 
 const DataNewsHero = () => {
   const data = useLayout();
-  console.log("data", data?.blogPageBanner);
   return (
     <div className="mt-5 rounded-md max-w-4xl w-full mx-auto">
       {/* <Link href="/data-news"> */}

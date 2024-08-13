@@ -9,7 +9,6 @@ export const metadata = {
 };
 const AboutPage = async () => {
   const data = await fetchAbout();
-  console.log("data", data);
   return (
     <div className="min-h-[60vh] md:min-h-[55vh] w-full mt-10">
       <div className="flex flex-col md:flex-row items-center md:items-start justify-center gap-10 text-center md:text-left">
