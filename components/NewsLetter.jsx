@@ -48,20 +48,20 @@ const NewsLetter = () => {
       <Avatar>
         {data?.logoImage && <AvatarImage src={urlFor(data?.logoImage)?.url()} />}
       </Avatar>
-      <div className="mt-7">
+      <div className="mt-7 w-full">
         <h3 className="font-semibold text-gray-800 dark:text-gray-100">
-          Data Engineering Newsletter
+          Data Engineering News
         </h3>
-        <div className="flex items-center mt-2">
+        <div className="flex items-center mt-2 relative max-w-[300px] mx-auto rounded-md">
           <input
             type="email"
             placeholder="Email address"
-            className="w-full p-2 text-sm border border-gray-200 rounded-l-md"
+            className="w-full p-2 text-sm border border-gray-200 rounded-md"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <button
-            className="w-fit p-2 text-sm bg-black text-white rounded-r-md flex items-center gap-2"
+            className="w-fit p-2 text-sm bg-black text-white rounded-r-md flex items-center gap-2 absolute right-0"
             onClick={handleSubmit}
           >
             Subscribe
