@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils";
 
 const getBlogPosts = (posts, tab) => {
   let topPosts = [];
-  topPosts = posts.filter((post) => post.category.includes("blog"));
-  topPosts = topPosts.filter((post) => post.subCategory.includes(tab));
+  topPosts = posts?.filter((post) => post?.category?.includes("blog"));
+  topPosts = topPosts?.filter((post) => post?.subCategory?.includes(tab));
   if (tab === "top") {
     topPosts = topPosts.sort((a, b) => b.priority - a.priority);
   }
@@ -21,8 +21,8 @@ const getBlogPosts = (posts, tab) => {
 
 const getDataNews = (posts, tab) => {
   let topPosts = [];
-  topPosts = posts.filter((post) => post.category.includes("data-news"));
-  topPosts = topPosts.filter((post) => post.subCategory.includes(tab));
+  topPosts = posts.filter((post) => post?.category?.includes("data-news"));
+  topPosts = topPosts.filter((post) => post?.subCategory?.includes(tab));
   if (tab === "top") {
     topPosts = topPosts.sort((a, b) => a.priority - b.priority);
   }
@@ -45,6 +45,8 @@ const BlogSection = ({ posts, pageType = "all" }) => {
   const [discussionPosts, setDiscussionPosts] = useState([]);
   const MAX_DISPLAY_BLOG = 4;
   const MAX_DISPLAY_DATA_NEWS = 9;
+
+  console.log("posts", posts);
 
   useEffect(() => {
     if (tab === "discussion") {

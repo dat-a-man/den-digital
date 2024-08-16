@@ -113,114 +113,116 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="mx-auto w-full min-h-[80vh] h-full">
-      <div className="mt-2 my-2">
-        <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
-          {post.title}
-        </h3>
-      </div>
-      <div className="flex items-center gap-4 my-2 mt-4">
-        <Avatar>
-          {post.author?.image ? (
-            <AvatarImage src={urlFor(post.author.image).url()} />
-          ) : (
-            <AvatarFallback>CN</AvatarFallback>
-          )}
-        </Avatar>
-        <div className="flex justify-between items-center w-full">
-          <div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-              {post.author.name}
-            </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              {dayjs(post._createdAt).format("MMMM DD, YYYY")}
-            </p>
-          </div>
-          <div className="flex items-center gap-4 my-2">
-            <Link href={`/post/${post.currentSlug}/comment`}>
-              <MessageCircle
-                className="text-xs text-gray-500 dark:text-gray-400"
-                size={18}
-              />
-            </Link>
-          </div>
+    <>
+      <div className="mx-auto w-full min-h-[80vh] h-full">
+        <div className="mt-2 my-2">
+          <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+            {post.title}
+          </h3>
         </div>
-      </div>
-      <Separator />
-      <div className="my-4 text-sm space-y-3 w-full mt-2">
-        {post.mainImage && (
-          <div className="rounded-md">
-            <Image
-              src={urlFor(post.mainImage).url()}
-              width={800}
-              height={400}
-              objectFit="cover"
-              alt={post.title}
-              className="rounded-md"
-            />
-          </div>
-        )}
-        <div className="mt-5 w-full">
-          <div className="prose w-full max-w-none">
-            <PortableText value={post.body} components={components} />
-          </div>
-        </div>
-      </div>
-      <div>
-        <div className="flex items-center justify-between mt-5">
-          <h2 className="text-3xl font-bold text-gray-800">
-            Comments ({comments.length})
-          </h2>
-          <div className="flex items-center gap-4 mt-5">
-            <Button variant="outline">
-              <ExternalLink className="text-gray-600" />
-            </Button>
-          </div>
-        </div>
-        <div className="mt-3">
-          <Textarea
-            placeholder="Write a comment..."
-            onChange={(e) => setComment(e.target.value)}
-            value={comment || ""}
-          />
-          <div className="flex items-center justify-end mt-2">
-            {commentUser === null ? (
-              <EnterNameModal
-                setCommentUser={setCommentUser}
-                commentUser={commentUser}
-              />
+        <div className="flex items-center gap-4 my-2 mt-4">
+          <Avatar>
+            {post.author?.image ? (
+              <AvatarImage src={urlFor(post.author.image).url()} />
             ) : (
-              <Button
-                onClick={handleSubmit}
-                disabled={comment === null || commentUser === null}
-              >
-                {commentPostLoader && (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                )}
-                {commentPostLoader ? "Posting" : "Post"}
-              </Button>
+              <AvatarFallback>CN</AvatarFallback>
             )}
+          </Avatar>
+          <div className="flex justify-between items-center w-full">
+            <div>
+              <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                {post.author.name}
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                {dayjs(post._createdAt).format("MMMM DD, YYYY")}
+              </p>
+            </div>
+            <div className="flex items-center gap-4 my-2">
+              <Link href={`/post/${post.currentSlug}/comment`}>
+                <MessageCircle
+                  className="text-xs text-gray-500 dark:text-gray-400"
+                  size={18}
+                />
+              </Link>
+            </div>
           </div>
         </div>
-        <Separator className="my-2" />
-        {commentLoader ? (
-          <CommentLoader />
-        ) : (
-          <CommentList comments={comments.slice(0, MAX_COMMENT)} />
-        )}
-
-        {comments.length > MAX_COMMENT && (
-          <div className="flex items-center justify-center mt-5">
-            <Link
-              href={`/post/${post.currentSlug}/comment`}
-              className="flex gap-3 items-center"
-            >
-              Show All <ArrowRight />
-            </Link>
+        <Separator />
+        <div className="my-4 text-sm space-y-3 w-full mt-2">
+          {post.mainImage && (
+            <div className="rounded-md">
+              <Image
+                src={urlFor(post.mainImage).url()}
+                width={800}
+                height={400}
+                objectFit="cover"
+                alt={post.title}
+                className="rounded-md"
+              />
+            </div>
+          )}
+          <div className="mt-5 w-full">
+            <div className="prose w-full max-w-none">
+              <PortableText value={post.body} components={components} />
+            </div>
           </div>
-        )}
+        </div>
+        <div>
+          <div className="flex items-center justify-between mt-5">
+            <h2 className="text-3xl font-bold text-gray-800">
+              Comments ({comments.length})
+            </h2>
+            <div className="flex items-center gap-4 mt-5">
+              <Button variant="outline">
+                <ExternalLink className="text-gray-600" />
+              </Button>
+            </div>
+          </div>
+          <div className="mt-3">
+            <Textarea
+              placeholder="Write a comment..."
+              onChange={(e) => setComment(e.target.value)}
+              value={comment || ""}
+            />
+            <div className="flex items-center justify-end mt-2">
+              {commentUser === null ? (
+                <EnterNameModal
+                  setCommentUser={setCommentUser}
+                  commentUser={commentUser}
+                />
+              ) : (
+                <Button
+                  onClick={handleSubmit}
+                  disabled={comment === null || commentUser === null}
+                >
+                  {commentPostLoader && (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+                  {commentPostLoader ? "Posting" : "Post"}
+                </Button>
+              )}
+            </div>
+          </div>
+          <Separator className="my-2" />
+          {commentLoader ? (
+            <CommentLoader />
+          ) : (
+            <CommentList comments={comments.slice(0, MAX_COMMENT)} />
+          )}
+
+          {comments.length > MAX_COMMENT && (
+            <div className="flex items-center justify-center mt-5">
+              <Link
+                href={`/post/${post.currentSlug}/comment`}
+                className="flex gap-3 items-center"
+              >
+                Show All <ArrowRight />
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
