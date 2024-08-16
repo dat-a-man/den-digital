@@ -46,8 +46,6 @@ const BlogSection = ({ posts, pageType = "all" }) => {
   const MAX_DISPLAY_BLOG = 4;
   const MAX_DISPLAY_DATA_NEWS = 9;
 
-  console.log("posts", posts);
-
   useEffect(() => {
     if (tab === "discussion") {
       setDiscussionPosts(getDiscussionPosts(posts));
