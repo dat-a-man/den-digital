@@ -9,6 +9,8 @@ import { PortableText } from "@portabletext/react";
 import {
   ArrowLeft,
   ArrowRight,
+  Copy,
+  CopyCheck,
   ExternalLink,
   Heart,
   Loader2,
@@ -25,6 +27,9 @@ import CommentLoader from "@/components/CommentLoader";
 import EnterNameModal from "./_components/EnterNameModal";
 import { useToast } from "@/components/ui/use-toast";
 import { Textarea } from "@/components/ui/textarea";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import Prism from "prismjs";
+import "prismjs/themes/prism.css";
 
 const MAX_COMMENT = 10;
 
@@ -58,6 +63,8 @@ const BlogPost = () => {
       getComments();
     }
   }, [post]);
+
+  console.log("blog", post);
 
   useEffect(() => {
     getPostData();
@@ -97,6 +104,45 @@ const BlogPost = () => {
           style={{ maxWidth: "100%", height: "auto" }} // Responsive styling
         />
       ),
+      code: ({ value }) => {
+        const [copied, setCopied] = useState(false);
+        useEffect(() => {
+          Prism.highlightAll();
+        }, []);
+        const handleCopy = () => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+        };
+
+        return (
+          <div style={{ position: "relative" }}>
+            <CopyToClipboard text={value.code} onCopy={handleCopy}>
+              <div
+                variant="outline"
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "3px",
+                  padding: "5px 10px",
+                  cursor: "pointer",
+                }}
+              >
+                {copied ? (
+                  <CopyCheck className="text-black" />
+                ) : (
+                  <Copy className="text-black" />
+                )}
+              </div>
+            </CopyToClipboard>
+            <pre data-language={value.language}>
+              <code className={`language-${value.language}`}>{value.code}</code>
+            </pre>
+          </div>
+        );
+      },
     },
   };
 
