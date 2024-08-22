@@ -10,7 +10,6 @@ export const metadata = {
 
 async function Blog() {
   const data = await fetchPosts();
-
   return (
     <div className="max-w-6xl w-full m-auto min-h-[70vh] md:min-h-[60vh]">
       <BlogHero />
@@ -28,6 +27,7 @@ export default function Page() {
     </>
   );
 }
+
 const HeroLoaer = () => {
   return (
     <div className="max-w-6xl min-h-[70vh] md:min-h-[60vh]  w-full m-auto">
