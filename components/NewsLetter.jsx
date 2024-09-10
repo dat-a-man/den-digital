@@ -17,27 +17,27 @@ const NewsLetter = () => {
   const data = useLayout();
   const [email, setEmail] = useState("");
   const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
-  const handleSubmit = () => {
-    setLoading(true);
-    axios
-      .post("/api/email", { email })
-      .then((res) => {
-        if (res.status === 200) {
-          toast({
-            variant: "success",
-            description: res.data.message || "Subscribed successfully",
-          });
-        } else {
-          toast({
-            variant: "destructive",
-            description: "Something went wrong",
-          });
-        }
-        setEmail("");
-      })
-      .finally(() => setLoading(false));
-  };
+  // const [loading, setLoading] = useState(false);
+  // const handleSubmit = () => {
+  //   setLoading(true);
+  //   axios
+  //     .post("/api/email", { email })
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         toast({
+  //           variant: "success",
+  //           description: res.data.message || "Subscribed successfully",
+  //         });
+  //       } else {
+  //         toast({
+  //           variant: "destructive",
+  //           description: "Something went wrong",
+  //         });
+  //       }
+  //       setEmail("");
+  //     })
+  //     .finally(() => setLoading(false));
+  // };
   return (
     <div className="flex flex-col items-center justify-center text-center my-5">
       <Avatar>
@@ -49,7 +49,7 @@ const NewsLetter = () => {
         <h3 className="font-semibold text-gray-800 dark:text-gray-100 mb-3">
           Data Engineering News
         </h3>
-        <Button onClick={handleSubmit}>Send Email</Button>
+        {/* <Button onClick={handleSubmit}>Send Email</Button> */}
         {/* <div className="flex items-center mt-2 relative max-w-[300px] mx-auto rounded-md">
           <input
             type="email"
