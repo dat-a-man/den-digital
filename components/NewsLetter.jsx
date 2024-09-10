@@ -6,6 +6,7 @@ import { urlFor } from "@/lib/sanity";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
 import { Loader2 } from "lucide-react";
+import { Button } from "./ui/button";
 
 function isValidEmail(email) {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -18,12 +19,6 @@ const NewsLetter = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const handleSubmit = () => {
-    if (!isValidEmail(email)) {
-      return toast({
-        variant: "destructive",
-        description: "Please enter a valid email address",
-      });
-    }
     setLoading(true);
     axios
       .post("/api/email", { email })
@@ -46,13 +41,16 @@ const NewsLetter = () => {
   return (
     <div className="flex flex-col items-center justify-center text-center my-5">
       <Avatar>
-        {data?.logoImage && <AvatarImage src={urlFor(data?.logoImage)?.url()} />}
+        {data?.logoImage && (
+          <AvatarImage src={urlFor(data?.logoImage)?.url()} />
+        )}
       </Avatar>
-      <div className="mt-7 w-full">
-        <h3 className="font-semibold text-gray-800 dark:text-gray-100">
+      <div className="mt-3 w-full">
+        <h3 className="font-semibold text-gray-800 dark:text-gray-100 mb-3">
           Data Engineering News
         </h3>
-        <div className="flex items-center mt-2 relative max-w-[300px] mx-auto rounded-md">
+        <Button onClick={handleSubmit}>Send Email</Button>
+        {/* <div className="flex items-center mt-2 relative max-w-[300px] mx-auto rounded-md">
           <input
             type="email"
             placeholder="Email address"
@@ -67,7 +65,24 @@ const NewsLetter = () => {
             Subscribe
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           </button>
-        </div>
+        </div> */}
+      </div>
+      <div className="">
+        <iframe
+          src="https://embeds.beehiiv.com/0aa0e2b4-af04-4d2c-837f-c34e7e2440ed?slim=true"
+          data-test-id="beehiiv-embed"
+          // height="42"
+          style={{
+            width: "100%",
+            height: "100%",
+            border: "none",
+            borderRadius: "0px !important",
+            backgroundColor: "transparent",
+            padding: "0px",
+          }}
+          frameborder="0"
+          scrolling="no"
+        ></iframe>
       </div>
     </div>
   );
