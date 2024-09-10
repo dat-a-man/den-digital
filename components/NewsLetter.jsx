@@ -14,7 +14,7 @@ function isValidEmail(email) {
 }
 
 const NewsLetter = () => {
-  const data = useLayout();
+  const { layoutData: data } = useLayout();
   const [email, setEmail] = useState("");
   const { toast } = useToast();
   // const [loading, setLoading] = useState(false);
@@ -67,7 +67,7 @@ const NewsLetter = () => {
           </button>
         </div> */}
       </div>
-      <div className="">
+      <div className="text-center">
         <iframe
           src="https://embeds.beehiiv.com/0aa0e2b4-af04-4d2c-837f-c34e7e2440ed?slim=true"
           data-test-id="beehiiv-embed"

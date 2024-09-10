@@ -25,7 +25,7 @@ export async function POST(req, res) {
   try {
     const data = await resend.emails.send({
       from: "newsletter@den.digital",
-      to: "cotsec14@gmail.com",
+      to: "Amanguptatez@gmail.com",
       subject: "New User Subscribed",
       react: KoalaWelcomeEmail(),
     });

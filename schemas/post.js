@@ -94,6 +94,33 @@ export default {
       of: [{ type: "comment" }],
       description: "Comments on this post",
     },
+    {
+      name: "likes",
+      title: "Likes",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "ipAddress",
+              title: "IP Address",
+              type: "string",
+              description: "IP address of the system that liked the post",
+            },
+            {
+              name: "likedAt",
+              title: "Liked At",
+              type: "datetime",
+              description: "Date and time when the like was made",
+              initialValue: () => new Date().toISOString(),
+            },
+          ],
+        },
+      ],
+      description:
+        "List of likes with the IP addresses of users who liked this post",
+    },
   ],
 
   preview: {

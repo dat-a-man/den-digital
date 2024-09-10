@@ -6,26 +6,42 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
 import dayjs from "dayjs";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, ThumbsUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLayout } from "@/lib/LayoutContext";
+import axios from "axios";
+import LikeButton from "./ui/LikeButton";
+import TruncateText from "./TruncateText";
 
 const getBlogPosts = (posts, tab) => {
   let topPosts = [];
   topPosts = posts?.filter((post) => post?.category?.includes("blog"));
-  topPosts = topPosts?.filter((post) => post?.subCategory?.includes(tab));
+  // topPosts = topPosts?.filter((post) => post?.subCategory?.includes(tab));
   if (tab === "top") {
-    topPosts = topPosts.sort((a, b) => b.priority - a.priority);
+    topPosts = topPosts.sort((a, b) => b.likes.length - a.likes.length);
   }
   return topPosts;
 };
 
 const getDataNews = (posts, tab) => {
   let topPosts = [];
-  topPosts = posts.filter((post) => post?.category?.includes("data-news"));
-  topPosts = topPosts.filter((post) => post?.subCategory?.includes(tab));
+
+  // Calculate the date 4 months ago
+  const fourMonthsAgo = new Date();
+  fourMonthsAgo.setMonth(fourMonthsAgo.getMonth() - 4);
+
+  // Filter posts with category 'data-news' and published within the last 4 months
+  topPosts = posts.filter(
+    (post) =>
+      post?.category?.includes("data-news") &&
+      new Date(post.publishedAt) >= fourMonthsAgo
+  );
+
   if (tab === "top") {
-    topPosts = topPosts.sort((a, b) => a.priority - b.priority);
+    // Sort posts based on the number of likes (in descending order)
+    topPosts = topPosts.sort((a, b) => b.likes.length - a.likes.length);
   }
+
   return topPosts;
 };
 
@@ -189,17 +205,19 @@ const BlogCard = ({ post }) => {
       <Link href={`/post/${post.currentSlug}`}>
         <div className="flex items-center space-x-4 ">
           <div className="w-[70%] space-y-2">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+            <h3 className="text-[16px] lg:text-lg font-semibold text-gray-800 dark:text-gray-100">
               {post.title}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <TruncateText text={post.summary} />
+            {/* <p className="text-sm text-gray-600 dark:text-gray-400">
               {post.summary}
-            </p>
+            </p> */}
             <p className="text-xs text-gray-500 dark:text-gray-400">
               {dayjs(post.publishedAt).format("MMMM DD, YYYY")} •{" "}
-              <span className="font-semibold text-gray-500">{post.name}</span>
+              <span className="font-semibold text-gray-500">
+                {post.author.name}
+              </span>
             </p>
-            <div>{/* <Heart size={14} /> */}</div>
           </div>
           <div className="w-[30%] h-28 relative rounded-md overflow-hidden">
             {post?.mainImage && (
@@ -226,6 +244,7 @@ const BlogCard = ({ post }) => {
             {post?.commentsCount}
           </span>
         </Link>
+        <LikeButton post={post} />
       </div>
     </div>
   );
@@ -245,9 +264,7 @@ const CommentCard = ({ post }) => {
             <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
               <span> Commented on: </span> {post.title}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              {post.summary}
-            </p>
+            <TruncateText text={post.summary} />
             <p className="text-xs text-gray-500 dark:text-gray-400">
               {dayjs(post.latestComment._createAt).format("MMMM DD, YYYY")} •{" "}
               <span className="font-semibold text-gray-500">

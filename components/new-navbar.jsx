@@ -9,7 +9,7 @@ import React, { useState } from "react";
 
 const MobileNavbar = () => {
   const pathname = usePathname();
-  const data = useLayout();
+  const { layoutData: data } = useLayout();
   const isActive = (href) => pathname === href;
   const [menuOpen, setMenuOpen] = useState(false);
 

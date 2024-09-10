@@ -15,6 +15,7 @@ import {
   Heart,
   Loader2,
   MessageCircle,
+  ThumbsUp,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -30,6 +31,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Prism from "prismjs";
 import "prismjs/themes/prism.css";
+import { useLayout } from "@/lib/LayoutContext";
+import LikeButton from "@/components/ui/LikeButton";
 
 const MAX_COMMENT = 10;
 
@@ -45,10 +48,23 @@ const BlogPost = () => {
   const [commentPostLoader, setCommentPostLoader] = useState(false);
 
   const getPostData = async () => {
-    const post = await fetchPostBySlug(slug);
-    setPost(post);
-    setLoading(false);
-    setComments(post.comments);
+    try {
+      const response = await fetch(`/api/posts?slug=${slug}`);
+
+      if (!response.ok) {
+        throw new Error(`Error fetching post: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      setPost(data);
+      setComments(data.comments);
+      setLoading(false);
+      // setUserIp(response.ip);
+    } catch (error) {
+      console.error("Error fetching post data:", error);
+      setLoading(false);
+    }
   };
 
   const getComments = async () => {
@@ -160,7 +176,7 @@ const BlogPost = () => {
     <>
       <div className="mx-auto w-full min-h-[80vh] h-full">
         <div className="mt-2 my-2">
-          <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+          <h3 className="text-xl lg:text-2xl font-semibold text-gray-800 dark:text-gray-100">
             {post.title}
           </h3>
         </div>
@@ -188,6 +204,7 @@ const BlogPost = () => {
                   size={18}
                 />
               </Link>
+              <LikeButton post={post} />
             </div>
           </div>
         </div>

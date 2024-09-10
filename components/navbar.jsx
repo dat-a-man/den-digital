@@ -7,7 +7,7 @@ import { Skeleton } from "./ui/skeleton";
 import { usePathname } from "next/navigation";
 
 const Navbar = () => {
-  const data = useLayout();
+  const { layoutData: data } = useLayout();
   const pathname = usePathname();
 
   const isActive = (href) => pathname === href;
@@ -21,7 +21,10 @@ const Navbar = () => {
             <Skeleton height={50} width={50} circle />
           </div>
         ) : (
-          <Link href="/" className="font-semibold text-xl flex items-center gap-3">
+          <Link
+            href="/"
+            className="font-semibold text-xl flex items-center gap-3"
+          >
             {data?.logoImage && (
               <Image
                 src={urlFor(data?.logoImage)?.url()}
