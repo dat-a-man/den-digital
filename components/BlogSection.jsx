@@ -86,14 +86,14 @@ const BlogSection = ({ pageType = "all" }) => {
       setPosts(data.data);
     }
   }, [data]);
-  
+
   useEffect(() => {
     if (tab === "discussion") {
       setDiscussionPosts(getDiscussionPosts(posts));
     }
     setBlogPosts(getBlogPosts(posts, tab));
     setDataNews(getDataNews(posts, tab));
-  }, [tab, data]);
+  }, [tab, posts]);
 
   return (
     <div className=" mt-10 mx-auto overflow-hidden">

@@ -1,8 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { likePost } from "./action";
+import { useLayout } from "@/lib/LayoutContext";
 
 export function useLikePostMutation() {
   const queryClient = useQueryClient();
+  const { userIp } = useLayout();
 
   const mutation = useMutation({
     mutationFn: likePost,
@@ -10,26 +12,25 @@ export function useLikePostMutation() {
       const queryKey = ["post-feed", "for-you"];
       await queryClient.cancelQueries({ queryKey });
       queryClient.setQueryData(queryKey, (oldData) => {
-        console.log("oldData", oldData);
-        // const firstPage = oldData?.pages[0];
-
-        // if (firstPage) {
-        //   return {
-        //     pageParams: oldData.pageParams,
-        //     pages: [
-        //       {
-        //         previousCursor: firstPage.previousCursor,
-        //         comments: [...firstPage.comments, newComment],
-        //       },
-        //       ...oldData.pages.slice(1),
-        //     ],
-        //   };
-        // }
+        if (newComment?._id) {
+          return {
+            ...oldData,
+            data: oldData.data.map((post) => {
+              if (post._id === newComment._id) {
+                return {
+                  ...post,
+                  likes: newComment.likes,
+                };
+              }
+              return post;
+            }),
+          };
+        }
+        return oldData;
       });
       queryClient.invalidateQueries({
         queryKey,
         predicate(query) {
-          console.log("inside predicate", query.state.data);
           return !query.state.data;
         },
       });
