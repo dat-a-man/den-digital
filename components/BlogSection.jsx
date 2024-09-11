@@ -12,14 +12,21 @@ import { useLayout } from "@/lib/LayoutContext";
 import axios from "axios";
 import LikeButton from "./ui/LikeButton";
 import TruncateText from "./TruncateText";
+import { useQuery } from "@tanstack/react-query";
 
 const getBlogPosts = (posts, tab) => {
   let topPosts = [];
   topPosts = posts?.filter((post) => post?.category?.includes("blog"));
   // topPosts = topPosts?.filter((post) => post?.subCategory?.includes(tab));
   if (tab === "top") {
-    topPosts = topPosts.sort((a, b) => b.likes.length - a.likes.length);
+    // Sort posts based on the number of likes (in descending order)
+    topPosts = topPosts.sort((a, b) => {
+      const likesA = a?.likes?.length || 0; // Default to 0 if likes is null/undefined
+      const likesB = b?.likes?.length || 0; // Default to 0 if likes is null/undefined
+      return likesB - likesA;
+    });
   }
+
   return topPosts;
 };
 
@@ -41,7 +48,11 @@ const getDataNews = (posts, tab) => {
 
   if (posts && posts.length > 0 && tab === "top") {
     // Sort posts based on the number of likes (in descending order)
-    topPosts = topPosts.sort((a, b) => b.likes.length - a.likes.length);
+    topPosts = topPosts.sort((a, b) => {
+      const likesA = a?.likes?.length || 0; // Default to 0 if likes is null/undefined
+      const likesB = b?.likes?.length || 0; // Default to 0 if likes is null/undefined
+      return likesB - likesA;
+    });
   }
 
   return topPosts;
@@ -56,21 +67,33 @@ const getDiscussionPosts = (posts) => {
   return disscussionPosts;
 };
 
-const BlogSection = ({ posts, pageType = "all" }) => {
+const BlogSection = ({ pageType = "all" }) => {
   const [tab, setTab] = useState("latest");
   const [blogPosts, setBlogPosts] = useState([]);
   const [dataNews, setDataNews] = useState([]);
   const [discussionPosts, setDiscussionPosts] = useState([]);
   const MAX_DISPLAY_BLOG = 4;
   const MAX_DISPLAY_DATA_NEWS = 9;
+  const [posts, setPosts] = useState([]);
 
+  const { data } = useQuery({
+    queryKey: ["post-feed", "for-you"],
+    queryFn: () => axios.get("/api/post-section"),
+  });
+
+  useEffect(() => {
+    if (data) {
+      setPosts(data.data);
+    }
+  }, [data]);
+  
   useEffect(() => {
     if (tab === "discussion") {
       setDiscussionPosts(getDiscussionPosts(posts));
     }
     setBlogPosts(getBlogPosts(posts, tab));
     setDataNews(getDataNews(posts, tab));
-  }, [tab]);
+  }, [tab, data]);
 
   return (
     <div className=" mt-10 mx-auto overflow-hidden">
