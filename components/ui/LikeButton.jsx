@@ -2,18 +2,22 @@ import { useLayout } from "@/lib/LayoutContext";
 import axios from "axios";
 import { ThumbsUp } from "lucide-react";
 import React from "react";
+import { useLikePostMutation } from "../likes/mutations";
 
 const LikeButton = ({ post }) => {
   const { userIp } = useLayout();
+  const mutation = useLikePostMutation();
+
   const handleLike = () => {
-    axios
-      .patch("/api/views", {
-        _id: post._id,
-        userIp,
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
+    mutation.mutate({ _id: post._id, userIp });
+    // axios
+    //   .patch("/api/views", {
+    //     _id: post._id,
+    //     userIp,
+    //   })
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   });
   };
 
   return (
