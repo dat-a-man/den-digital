@@ -6,7 +6,7 @@ import Link from "next/link";
 import React from "react";
 
 const BlogHero = () => {
-  const data = useLayout();
+  const { layoutData: data } = useLayout();
   return (
     <div className="mt-5 rounded-md max-w-4xl w-full mx-auto">
       {/* <Link href="/blog"> */}

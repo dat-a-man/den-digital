@@ -31,13 +31,15 @@ const getDataNews = (posts, tab) => {
   fourMonthsAgo.setMonth(fourMonthsAgo.getMonth() - 4);
 
   // Filter posts with category 'data-news' and published within the last 4 months
-  topPosts = posts.filter(
-    (post) =>
-      post?.category?.includes("data-news") &&
-      new Date(post.publishedAt) >= fourMonthsAgo
-  );
+  if (posts && posts.length > 0) {
+    topPosts = posts.filter(
+      (post) =>
+        post?.category?.includes("data-news") &&
+        new Date(post.publishedAt) >= fourMonthsAgo
+    );
+  }
 
-  if (tab === "top") {
+  if (posts && posts.length > 0 && tab === "top") {
     // Sort posts based on the number of likes (in descending order)
     topPosts = topPosts.sort((a, b) => b.likes.length - a.likes.length);
   }
@@ -261,7 +263,7 @@ const CommentCard = ({ post }) => {
               width: post?.mainImage ? "70%" : "100%",
             }}
           >
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+            <h3 className="text-[16px] lg:text-lg font-semibold text-gray-800 dark:text-gray-100">
               <span> Commented on: </span> {post.title}
             </h3>
             <TruncateText text={post.summary} />
