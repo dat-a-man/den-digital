@@ -219,6 +219,7 @@ const BlogPost = () => {
                 objectFit="cover"
                 alt={post.title}
                 className="rounded-md"
+                loading="lazy"
               />
             </div>
           )}

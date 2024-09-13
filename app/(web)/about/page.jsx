@@ -20,6 +20,7 @@ const AboutPage = async () => {
               height={600}
               alt="about"
               className="rounded-full object-cover"
+              loading="lazy"
             />
           )}
         </div>

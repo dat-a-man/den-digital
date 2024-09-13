@@ -13,6 +13,7 @@ import axios from "axios";
 import LikeButton from "./ui/LikeButton";
 import TruncateText from "./TruncateText";
 import { useQuery } from "@tanstack/react-query";
+import BlogLoaderSkeleton from "./loaders/BlogLoaderSkeleton";
 
 const getBlogPosts = (posts, tab) => {
   let topPosts = [];
@@ -74,7 +75,7 @@ const BlogSection = ({ pageType = "all" }) => {
   const MAX_DISPLAY_DATA_NEWS = 9;
   const [posts, setPosts] = useState([]);
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["post-feed", "for-you"],
     queryFn: () => axios.get("/api/post-section"),
   });
@@ -92,6 +93,8 @@ const BlogSection = ({ pageType = "all" }) => {
     setBlogPosts(getBlogPosts(posts, tab));
     setDataNews(getDataNews(posts, tab));
   }, [tab, posts]);
+
+  if (isLoading) return <BlogLoaderSkeleton />;
 
   return (
     <div className=" mt-10 mx-auto overflow-hidden">
@@ -249,6 +252,7 @@ const BlogCard = ({ post }) => {
                 layout="fill"
                 objectFit="cover"
                 alt={post.title}
+                loading="lazy"
               />
             )}
           </div>
@@ -302,6 +306,7 @@ const CommentCard = ({ post }) => {
                 layout="fill"
                 objectFit="cover"
                 alt={post.title}
+                loading="lazy"
               />
             </div>
           )}

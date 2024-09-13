@@ -31,6 +31,7 @@ const Navbar = () => {
                 width={40}
                 height={40}
                 alt="logo"
+                loading="lazy"
               />
             )}
             <span className="flex">{data?.logoText}</span>

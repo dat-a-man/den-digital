@@ -19,6 +19,7 @@ const BlogHero = () => {
               height={400} // Reduced height
               alt="blog"
               className="rounded-md object-cover" // Ensures the image covers the container
+              loading="lazy"
             />
           </div>
         </div>

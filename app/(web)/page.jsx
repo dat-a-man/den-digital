@@ -16,13 +16,13 @@ async function Home() {
 
 export default function Page() {
   return (
-    <Suspense fallback={<HeroLoaer />}>
+    <Suspense fallback={<Loader />}>
       <Home />
     </Suspense>
   );
 }
 
-const HeroLoaer = () => {
+const Loader = () => {
   return (
     <div className="max-w-6xl w-full m-auto">
       <Skeleton className="h-[400px]" />
