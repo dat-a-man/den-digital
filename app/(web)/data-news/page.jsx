@@ -28,6 +28,7 @@ export default function Page() {
     </>
   );
 }
+
 const HeroLoaer = () => {
   return (
     <div className="max-w-6xl w-full min-h-[70vh] md:min-h-[60vh] m-auto">

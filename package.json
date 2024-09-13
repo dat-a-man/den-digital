@@ -30,6 +30,7 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.12",
     "lucide-react": "^0.424.0",
+    "nanoid": "^5.0.7",
     "next": "14.2.5",
     "next-sanity": "^9.4.4",
     "prismjs": "^1.29.0",
@@ -39,6 +40,7 @@
     "request-ip": "^3.3.0",
     "resend": "^4.0.0",
     "sanity": "^3.53.0",
+    "sharp": "^0.33.5",
     "styled-components": "^6.1.12",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7"
