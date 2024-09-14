@@ -8,7 +8,7 @@ import React from "react";
 const DataNewsHero = () => {
   const { layoutData: data } = useLayout();
   return (
-    <div className="mt-5 rounded-md max-w-4xl w-full mx-auto">
+    <div className="mt-5 rounded-md max-w-4xl w-full mx-auto min-h-[400px]">
       {/* <Link href="/data-news"> */}
       {data?.dataPageBanner && (
         <div className="grid grid-cols-1 items-center">
@@ -19,6 +19,7 @@ const DataNewsHero = () => {
               height={400} // Reduced height
               alt="blog"
               className="rounded-md object-cover" // Ensures the image covers the container
+              loading="lazy"
             />
           </div>
         </div>

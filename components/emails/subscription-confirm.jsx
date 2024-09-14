@@ -12,7 +12,7 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-export const KoalaWelcomeEmail = () => (
+export const ConfirmEmail = () => (
   <Html>
     <Head />
     <Preview>
@@ -29,7 +29,7 @@ export const KoalaWelcomeEmail = () => (
         />
         <Text style={paragraph}>Hi Aman,</Text>
         <Text style={paragraph}>
-          You got the new subscriber. Please check the details.
+          New subscriber has confirmed the email. Please check the details.
         </Text>
         <Section style={btnContainer}></Section>
         <Text style={paragraph}>
@@ -43,7 +43,7 @@ export const KoalaWelcomeEmail = () => (
   </Html>
 );
 
-export default KoalaWelcomeEmail;
+export default ConfirmEmail;
 
 const main = {
   backgroundColor: "#ffffff",
