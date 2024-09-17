@@ -18,7 +18,7 @@ const layout = ({ children }) => {
           <div className="block md:hidden">
             <MobileNavbar />
           </div>
-          <main className="max-w-5xl w-full mx-auto md:px-20 lg:px-32 p-3">
+          <main className="max-w-5xl w-full mx-auto md:px-20 lg:px-32 px-3">
             <Toaster />
             {children}
           </main>

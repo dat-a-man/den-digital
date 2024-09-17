@@ -39,7 +39,7 @@ const NewsLetter = () => {
   //     .finally(() => setLoading(false));
   // };
   return (
-    <div className="flex flex-col items-center justify-center text-center my-5">
+    <div className="flex flex-col items-center justify-center text-center mt-5">
       <Avatar>
         {data?.logoImage && (
           <AvatarImage src={urlFor(data?.logoImage)?.url()} />
@@ -49,25 +49,8 @@ const NewsLetter = () => {
         <h3 className="font-semibold text-gray-800 dark:text-gray-100 mb-3">
           Data Engineering News
         </h3>
-        {/* <Button onClick={handleSubmit}>Send Email</Button> */}
-        {/* <div className="flex items-center mt-2 relative max-w-[300px] mx-auto rounded-md">
-          <input
-            type="email"
-            placeholder="Email address"
-            className="w-full p-2 text-sm border border-gray-200 rounded-md"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button
-            className="w-fit p-2 text-sm bg-black text-white rounded-r-md flex items-center gap-2 absolute right-0"
-            onClick={handleSubmit}
-          >
-            Subscribe
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          </button>
-        </div> */}
       </div>
-      <div className="text-center">
+      <div className="text-center mx-auto text-sm text-balance">
         <iframe
           src="https://embeds.beehiiv.com/0aa0e2b4-af04-4d2c-837f-c34e7e2440ed?slim=true"
           data-test-id="beehiiv-embed"
@@ -79,6 +62,7 @@ const NewsLetter = () => {
             borderRadius: "0px !important",
             backgroundColor: "transparent",
             padding: "0px",
+            textAlign: "center",
           }}
           frameborder="0"
           scrolling="no"

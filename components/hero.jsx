@@ -8,7 +8,7 @@ import React from "react";
 const Hero = () => {
   const { layoutData: data } = useLayout();
   return (
-    <div className="mt-5 rounded-md max-w-4xl w-full mx-auto min-h-[400px]">
+    <div className="mt-5 rounded-md max-w-4xl w-full mx-auto lg:min-h-[400px]">
       {/* <Link href="/"> */}
       {data?.homePageBanner && (
         <div className="grid grid-cols-1 items-center">
