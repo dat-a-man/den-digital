@@ -194,7 +194,7 @@ const BlogPost = () => {
                 {post.author.name}
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                {dayjs(post._updatedAt).format("MMMM DD, YYYY")}
+                {dayjs(post.publishedAt).format("MMMM DD, YYYY")}
               </p>
             </div>
             <div className="flex items-center gap-4 my-2">
